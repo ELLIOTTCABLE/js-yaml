@@ -7,7 +7,7 @@ var readFileSync = require('fs').readFileSync;
 
 
 test("Incorrect utf-8 handling on require('file.yaml')", function () {
-  var data = yaml.safeLoad(readFileSync(__dirname + '/0054.yml', 'utf8')),
+  var data = yaml.safeLoad(readFileSync(require('path').join(__dirname, '/0054.yml'), 'utf8')),
       expected = '',
       index;
 
@@ -23,6 +23,6 @@ test("Incorrect utf-8 handling on require('file.yaml')", function () {
   // make sure none of the strings were corrupted.
   //
   for (index = 0; index < 40; index += 1) {
-    assert.equal(data[index], expected, ('Line ' + index + ' is corrupted'));
+    assert.strictEqual(data[index], expected, ('Line ' + index + ' is corrupted'));
   }
 });
